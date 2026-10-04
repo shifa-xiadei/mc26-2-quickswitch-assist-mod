@@ -105,6 +105,8 @@ src/main/java/com/quickswitchassist/
    Fabric API 0.161.0+26.2、ModMenu 20.0.3；补充跨平台构建说明与 `.gitattributes`。
 5. **仓库清理**：移除源码/脚本中的本机路径与个人环境信息，改为可移植的通用配置。
 
+### 注意，本项目构建只接受fabricloader 0.19.5使用其他fabricloader版本，可能导致无法加载游戏。
+
 除以上修改外，功能逻辑沿用原项目实现。
 
 ## 许可
