@@ -1,0 +1,64 @@
+quickswitch-assist — NOTICE
+================================
+
+本作品是衍生作品：基于原项目 CombatAssist 修改而来。
+This work is a derivative of the original project CombatAssist.
+
+------------------------------------------------------------------
+1. 原项目信息 / Original project
+------------------------------------------------------------------
+
+  Original project : CombatAssist
+  Original author  : peirooden
+  Original version : v0.1.0-1.21.11
+  Original source  : https://github.com/peirooden/combatassist/releases/tag/v0.1.0-1.21.11
+  Original license : MIT License
+
+------------------------------------------------------------------
+2. 原版权声明 / Original copyright notice（原文照录，未作修改）
+------------------------------------------------------------------
+
+  Copyright (c) 2026 peirooden
+
+  原项目的完整许可证原文保存在本仓库的 LICENSE 文件中，未作任何修改。
+  The original project's full license text is reproduced verbatim in the
+  LICENSE file of this repository and has not been modified.
+
+  原项目中与许可证/版权相关的声明文件清单（原项目仅有一个）：
+    - LICENSE  （MIT License，Copyright (c) 2026 peirooden）
+
+------------------------------------------------------------------
+3. 本项目的修改版权声明 / Copyright for the modifications
+------------------------------------------------------------------
+
+  本项目的修改部分：
+  Copyright (c) 2026 ShiFa
+
+  本项目的修改部分同样以 MIT License 发布；原项目部分仍归
+  Copyright (c) 2026 peirooden 所有，并继续受 MIT License 约束。
+
+  Modifications in this project:
+  Copyright (c) 2026 ShiFa
+
+  The modifications are licensed under the MIT License as well. The portions
+  originating from the original project remain Copyright (c) 2026 peirooden
+  and remain subject to the MIT License.
+
+------------------------------------------------------------------
+4. 修改内容概要 / Summary of modifications
+------------------------------------------------------------------
+
+  a) 把模组从 Minecraft 1.21.11 / Yarn 映射移植到 Minecraft 26.2
+     （26.1 起官方不再混淆，改用游戏官方名字；依赖写法由
+     modImplementation 改为 implementation，移除 mappings 依赖）。
+  b) 适配 26.2 的 API 变化（HUD、Screen/Gui、按键映射、物品数据组件、
+     向量/包围盒、Mixin 目标方法等），语言级别 21 → 25。
+  c) 模组更名与重新署名：id/名称 combatassist → quickswitch-assist，
+     Java 包 com.combatassist → com.quickswitchassist，类名
+     CombatAssist* → QuickSwitchAssist*，资源命名空间与 mixin 配置同步更名，
+     配置文件 combatassist.properties → quickswitch-assist.properties。
+  d) 构建工具链更新：Loom 1.17.x、Gradle 9.7.1 wrapper、Java 25、
+     Fabric API 0.161.0+26.2；补充跨平台构建说明、.gitattributes。
+  e) 删除仓库中的本机路径/个人环境信息，改为可移植的通用配置。
+
+  除以上修改外，其余功能逻辑沿用原项目实现。

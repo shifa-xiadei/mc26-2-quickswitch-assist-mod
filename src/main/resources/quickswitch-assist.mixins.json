@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.quickswitchassist.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "MultiPlayerGameModeInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

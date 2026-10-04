@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "quickswitch-assist",
+  "version": "${version}",
+  "name": "quickswitch-assist",
+  "description": "Client-side instant weapon-switch assist. No packets are constructed and the camera is never written to directly.",
+  "authors": [
+    "ShiFa"
+  ],
+  "contributors": [
+    "peirooden (original CombatAssist, MIT)"
+  ],
+  "license": "MIT",
+  "icon": "assets/quickswitch-assist/icon.png",
+  "environment": "client",
+  "mixins": [
+    "quickswitch-assist.mixins.json"
+  ],
+  "entrypoints": {
+    "client": [
+      "com.quickswitchassist.QuickSwitchAssistClient"
+    ],
+    "modmenu": [
+      "com.quickswitchassist.compat.QuickSwitchAssistModMenu"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}

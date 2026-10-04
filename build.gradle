@@ -1,0 +1,98 @@
+plugins {
+    // 26.1 起 Minecraft 不再混淆：用不带 -remap 的 Loom，依赖也不再走 modImplementation。
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+def edition = (findProperty("edition") ?: "user").toString().toLowerCase()
+def isDevEdition = edition == "dev"
+
+version = project.mod_version + (isDevEdition ? "-dev" : "")
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/releases/"
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    localRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+}
+
+def editionOutDir = layout.buildDirectory.dir("generated/sources/edition/java")
+
+tasks.register("generateEdition") {
+    def outDir = editionOutDir
+    def dev = isDevEdition
+    inputs.property "dev", dev
+    outputs.dir outDir
+    doLast {
+        def template = '''package com.quickswitchassist;
+
+public final class Edition {
+
+    public static final boolean DEV = __DEV__;
+
+    public static final String TITLE = "__TITLE__";
+
+    private Edition() {
+    }
+}
+'''
+        def content = template
+                .replace("__DEV__", dev.toString())
+                .replace("__TITLE__", dev ? "quickswitch-assist Dev" : "quickswitch-assist")
+
+        def pkgDir = new File(outDir.get().asFile, "com/quickswitchassist")
+        pkgDir.mkdirs()
+        new File(pkgDir, "Edition.java").setText(content, "UTF-8")
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDir editionOutDir
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn "generateEdition"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+// MIT 要求随分发附带许可证与版权声明：把 LICENSE 原文和 NOTICE 一起打进 jar。
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.name}" }
+    }
+    from("NOTICE") {
+        rename { "${it}_${project.name}" }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 25
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
